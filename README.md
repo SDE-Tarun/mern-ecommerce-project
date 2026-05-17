@@ -494,12 +494,5 @@ Authorization: Bearer <your_jwt_token>
 - GitHub: [@Manvendra-2006](https://github.com/Manvendra-2006)
 - Repository: [mern-ecommerce-project](https://github.com/Manvendra-2006/mern-ecommerce-project)
 
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** — feel free to use and modify it.
-
----
 
 > Built with ❤️ using the MERN Stack — MongoDB · Express.js · React.js · Node.js

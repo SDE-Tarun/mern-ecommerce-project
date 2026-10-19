@@ -1,19 +1,33 @@
+
 import mongoose from "mongoose";
-const userSchema = mongoose.Schema({
-    name:{
-        type:String,
-        required : true,
+
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    email : {
-        type : String,
-        required : true,
-        unique : true,
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
-    password :{
-        type : String,
-        required : true,
-    }
-},{
-    timestamps : true  // It is a mongoose Scheema option which automatically add two field createAt and updateAt
-})
-export default mongoose.model('User',userSchema);
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+export default mongoose.model("User", userSchema);

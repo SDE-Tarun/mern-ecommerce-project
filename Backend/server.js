@@ -14,7 +14,7 @@ const app = express()
 const __dirname = path.resolve()
 console.log(__dirname)
 const corsOptions = {
-    origin:"http://localhost:5173",
+        origin: 'http://localhost:5173',
     credentials:true
 }
 app.use(cors(corsOptions))
@@ -24,6 +24,7 @@ app.use('/api/products',productrouter)
 app.use('/api/cart',cartrouter)
 app.use('/api/address',addressrouter)
 app.use('/api/order',orderRouter)
+app.use('/api/orders', orderRouter);
 app.use(express.static(path.join(__dirname,"/Frontend/mern/dist"))) 
 app.get('*',(req,resp)=>{
     resp.sendFile(path.resolve(__dirname,"Frontend","mern","dist","index.html"))

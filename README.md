@@ -102,7 +102,7 @@ Create a `.env` file inside the `backend/` folder and add the following:
 
 ```env
 PORT=8900
-MONGO_URI=mongodb://localhost:27017/WebsiteData
+MONGO_URI=mongodb://localhost:27017/apna_store
 JWT_SECRET=MYJWTSECRETKEY123
 BCRYPT_SALT_ROUNDS=10
 ```

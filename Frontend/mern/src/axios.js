@@ -1,8 +1,9 @@
-
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: import.meta.env.PROD 
+    ? "https://apna-store-backend-h3wn.onrender.com" // Aapka live backend URL
+    : "/api", // Local development ke liye proxy
   withCredentials: true,
 });
 

@@ -11,10 +11,26 @@ import orderRouter from './Routes/orderRoutes.js'
 connectDB()
 const app = express()
 
+// CORS Configuration (Fixed for credentials + specific frontend origin)
+const allowedOrigins = [
+    'https://apna-store-frontend-wahx.onrender.com', // Aapka live frontend URL
+    'http://localhost:5173', // Localhost Vite dev server (agar use kar rahe hain)
+];
+
 const corsOptions = {
-    origin: '*', // Production ke liye sabhi origins allow kar sakte hain ya apna frontend URL de sakte hain
-    credentials: true
-}
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV !== 'production') {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
 
 app.use(cors(corsOptions))
 app.use(express.json())

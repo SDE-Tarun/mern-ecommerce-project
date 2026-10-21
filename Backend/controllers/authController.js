@@ -1,7 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { sendRegistrationEmail } from "../services/email.service.js";
 
 export const signupUser = async (req, res) => {
   try {
@@ -43,12 +42,6 @@ export const signupUser = async (req, res) => {
       password: hashedPassword,
       role, 
     });
-
-    try {
-      await sendRegistrationEmail(user.email, user.name);
-    } catch (emailError) {
-      console.error("Registration email error:", emailError);
-    }
 
     return res.status(201).json({
       message: role === "admin" ? "Admin registered successfully" : "User registered successfully",

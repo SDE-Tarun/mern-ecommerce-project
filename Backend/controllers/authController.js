@@ -1,4 +1,3 @@
-
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -6,7 +5,7 @@ import { sendRegistrationEmail } from "../services/email.service.js";
 
 export const signupUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, adminSecret } = req.body;
 
     if (!name?.trim() || !email?.trim() || !password) {
       return res.status(400).json({
@@ -28,11 +27,21 @@ export const signupUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Check if adminSecret matches the environment variable for production setup
+    let role = "user";
+    if (
+      adminSecret &&
+      process.env.ADMIN_SECRET_KEY &&
+      adminSecret === process.env.ADMIN_SECRET_KEY
+    ) {
+      role = "admin";
+    }
+
     const user = await User.create({
       name: name.trim(),
       email: normalizedEmail,
       password: hashedPassword,
-      role: "user", // Public signup can never create an admin
+      role, 
     });
 
     try {
@@ -42,7 +51,8 @@ export const signupUser = async (req, res) => {
     }
 
     return res.status(201).json({
-      message: "User registered successfully",
+      message: role === "admin" ? "Admin registered successfully" : "User registered successfully",
+      role,
     });
   } catch (error) {
     console.error("Signup Error:", error);

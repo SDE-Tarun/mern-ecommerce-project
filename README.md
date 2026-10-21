@@ -337,6 +337,7 @@ Example template:
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/apna_store
 JWT_SECRET=replace_with_a_long_random_secret
+ADMIN_SECRET_KEY=
 ```
 
 **Important:** This is a template, not a verified list of your application's exact variable names. Check your backend source code for the variables it reads. For example, your implementation may use `MONGODB_URI` instead of `MONGO_URI`, may use a different port, or may not use JWT.
